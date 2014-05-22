@@ -1,4 +1,4 @@
-
+import java.util.Arrays;
 
 public class Gauss {
 
@@ -10,8 +10,37 @@ public class Gauss {
      * b: Ein Vektor der Laenge n
      */
     public static double[] backSubst(double[][] R, double[] b) {
-        //TODO: Diese Methode ist zu implementieren
-        return new double[2];
+        double[] x = new double[b.length];
+        for (int i = b.length - 1; i >= 0; i--) {
+            x[i] = b[i];
+            for (int j = i + 1; j <= b.length - 1; j++) {
+                x[i] -= R[i][j] * x[j];
+            }
+            x[i] /= R[i][i];
+        }
+        return x;
+    }
+
+    /**
+     * 2D Array kopieren
+     */
+    public static double[][] copyArray(double[][] src) {
+        int length = src.length;
+        double[][] target = new double[length][src[0].length];
+        for (int i = 0; i < length; i++) {
+            System.arraycopy(src[i], 0, target[i], 0, src[i].length);
+        }
+        return target;
+    }
+
+    private static void swapRow(double[][] a2, double[] b2, int i, int zn) {
+        double[] tmp = a2[i];
+        a2[i] = a2[zn];
+        a2[zn] = tmp;
+
+        double tmp2 = b2[i];
+        b2[i] = b2[zn];
+        b2[zn] = tmp2;
     }
 
     /**
@@ -22,8 +51,33 @@ public class Gauss {
      * b: Ein Vektor der Laenge n
      */
     public static double[] solve(double[][] A, double[] b) {
-        //TODO: Diese Methode ist zu implementieren
-        return new double[2];
+        double[] copyB = Arrays.copyOf(b, b.length);
+        double[][] copyA = copyArray(A);
+
+        int n = b.length - 1;
+        int zn;
+
+        // solve gauss to upper tri. matrix
+
+        for (int i = 0; i <= n; i++) {
+            // pivot
+            zn = i;
+            for (int j = i + 1; j <= n; j++) {
+                if (Math.abs(copyA[j][i]) > copyA[zn][i])
+                    zn = j;
+            }
+            swapRow(copyA, copyB, i, zn);
+
+            for (int j = i + 1; j <= n; j++) {
+                double a = copyA[j][i] / copyA[i][i];
+                for (int k = 0; k < b.length; k++) {
+                    copyA[j][k] -= a * copyA[i][k];
+                }
+                copyB[j] -= a * copyB[i];
+            }
+        }
+
+        return backSubst(copyA, copyB);
     }
 
     /**
@@ -44,8 +98,43 @@ public class Gauss {
      * A: Eine singulaere Matrix der Groesse n x n
      */
     public static double[] solveSing(double[][] A) {
-        //TODO: Diese Methode ist zu implementieren
-        return new double[2];
+        double[] res = new double[A.length];
+
+        double[][] copyA = copyArray(A);
+
+        // solve gauss to upper tri. matrix
+
+        for (int i = 0; i < A.length; i++) {
+            // pivot
+            int zn = i;
+            for (int j = i + 1; j < A.length; j++) {
+                if (Math.abs(copyA[j][i]) > copyA[zn][i])
+                    zn = j;
+            }
+            swapRow(copyA, new double[A.length], i, zn);
+
+            if (copyA[i][i] < Math.pow(10, -10)) {
+                res[i] = 1;
+                double[][] T = copyArray(copyA);
+                double[] v = new double[T.length];
+
+                for (int j = 0; j < T.length; j++) {
+                    v[j] = -copyA[j][i];
+                }
+
+                double[] x = backSubst(T, v);
+                System.arraycopy(x, 0, res, 0, x.length);
+                return res;
+            }
+            for (int j = i + 1; j < A.length; j++) {
+                double a = copyA[j][i] / copyA[i][i];
+                for (int k = 0; k < A.length; k++) {
+                    copyA[j][k] -= a * copyA[i][k];
+                }
+            }
+        }
+
+        return new double[A.length];
     }
 
     /**
