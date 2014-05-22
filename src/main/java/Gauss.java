@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class Gauss {
+class Gauss {
 
     /**
      * Diese Methode soll die Loesung x des LGS R*x=b durch
@@ -24,7 +24,7 @@ public class Gauss {
     /**
      * 2D Array kopieren
      */
-    public static double[][] copyArray(double[][] src) {
+    private static double[][] copyArray(double[][] src) {
         int length = src.length;
         double[][] target = new double[length][src[0].length];
         for (int i = 0; i < length; i++) {

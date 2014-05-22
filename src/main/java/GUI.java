@@ -297,7 +297,7 @@ public class GUI extends JFrame {
         return jspCrawls;
     }
 
-    class updateStatus extends TimerTask {
+    private class updateStatus extends TimerTask {
         // private int i = 0;
 
         public void run() {
