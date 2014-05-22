@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
@@ -12,11 +11,9 @@ import java.util.TreeMap;
 
 public class Crawler {
 	private String outFile;
-	private String[] startPoints;
-	private int maxDepth;
+    private int maxDepth;
 	private String filter;
-	private int maxThreads = 10;
-	private int threadCount = 0;
+    private int threadCount = 0;
 	/* Zahl der entdeckten Seiten mit depth<maxDepth */
 	private int pageCount = 0;
 	/* Zahl der Seiten die bereits gecrawlt wurden */
@@ -30,12 +27,11 @@ public class Crawler {
 	public Crawler(String outputFile, String[] startURLs, int maxCrawlDepth,
 			String URLfilter) {
 		outFile = outputFile;
-		startPoints = startURLs;
-		maxDepth = maxCrawlDepth;
+        maxDepth = maxCrawlDepth;
 		filter = URLfilter;
 
 		// Queue mit Start-URLs initialisieren
-		for (String s : startPoints) {
+		for (String s : startURLs) {
 			s = s.toLowerCase();
 			pages.put(s, new Page(s, pageCount));
 			pageCount++;
@@ -45,7 +41,7 @@ public class Crawler {
 		startThreads();
 	}
 
-	public static String readPage(String url) throws MalformedURLException,
+	public static String readPage(String url) throws
             IOException {
         int maxSize = 500000;
 
@@ -112,6 +108,7 @@ public class Crawler {
 	public synchronized void startThreads() {
         QueuedPage qp;
 
+        int maxThreads = 10;
         while (!q.isEmpty() && threadCount < maxThreads && !canceled) {
             qp = q.poll();
             new CrawlerThread(qp, this);

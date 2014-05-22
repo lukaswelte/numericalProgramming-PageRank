@@ -4,30 +4,26 @@ public class Util {
     public static double eps = 1E-14;
 
     public static void printMatrix(int[][] A) {
-        for (int i = 0; i < A.length; i++) {
-            for (int j = 0; j < A[i].length; j++)
-                System.out.print(" " + A[i][j]);// System.out.printf("%d\t",
+        for (int[] aA : A) {
+            for (int anAA : aA) System.out.print(" " + anAA);// System.out.printf("%d\t",
             // A[i][j]);
             System.out.println();
         }
     }
 
     public static void printMatrix(double[][] A) {
-        for (int i = 0; i < A.length; i++) {
-            for (int j = 0; j < A[i].length; j++)
-                System.out.printf("%f  ", A[i][j]);
+        for (double[] aA : A) {
+            for (double anAA : aA) System.out.printf("%f  ", anAA);
             System.out.println();
         }
     }
 
     public static void printVector(double[] v) {
-        for (int i = 0; i < v.length; i++)
-            System.out.printf("%f\n", v[i]);
+        for (double aV : v) System.out.printf("%f\n", aV);
     }
 
     public static void printStringArray(String[] a) {
-        for (int i = 0; i < a.length; i++)
-            System.out.println(a[i]);
+        for (String anA : a) System.out.println(anA);
     }
 
     public static boolean vectorCompare(double[] v, double[] w) {

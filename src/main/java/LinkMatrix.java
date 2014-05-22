@@ -7,7 +7,7 @@ public class LinkMatrix {
     public int[][] L;
     public String[] urls;
 
-    public void read(String filename) throws FileNotFoundException, IOException {
+    public void read(String filename) throws IOException {
         String curRow[];
 
         BufferedReader file = new BufferedReader(new FileReader(filename));
@@ -25,14 +25,12 @@ public class LinkMatrix {
             urls = new String[n];
             for (int i = 0; i < n; i++)
                 urls[i] = file.readLine();
-        } catch (IOException e) {
-            throw e;
         } finally {
             file.close();
         }
     }
 
-    public void write(String filename) throws FileNotFoundException,
+    public void write(String filename) throws
             IOException {
         String temp;
 
@@ -41,19 +39,14 @@ public class LinkMatrix {
         try {
             file.write(String.valueOf(L.length) + "\r\n");
 
-            for (int i = 0; i < L.length; i++) {
+            for (int[] aL : L) {
                 temp = "";
                 for (int j = 0; j < L.length; j++)
-                    temp += String.valueOf(L[i][j]) + delim;
+                    temp += String.valueOf(aL[j]) + delim;
                 file.write(temp + "\r\n");
             }
 
-            for (int i = 0; i < urls.length; i++)
-                file.write(urls[i] + "\r\n");
-        } catch (FileNotFoundException e) {
-            throw e;
-        } catch (IOException e) {
-            throw e;
+            for (String url : urls) file.write(url + "\r\n");
         } finally {
             file.close();
         }

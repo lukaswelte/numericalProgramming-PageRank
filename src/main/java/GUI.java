@@ -21,14 +21,9 @@ public class GUI extends JFrame {
 
     private JButton jbGo = null;
     private JButton jbCancel = null;
-    private JLabel jlStartURLs = null;
     private JTextPane jtpStartURLs = null;
-    private JLabel jlFilter = null;
     private JTextField jtfFilter = null;
-    private JLabel jlFilterExp = null;
-    private JLabel jlDepth = null;
     private JTextField jtfMaxDepth = null;
-    private JLabel jlOutput = null;
     private JTextField jtfOutput = null;
     private JScrollPane jspStartURLs = null;
     private JScrollPane jspCrawls = null;
@@ -48,13 +43,11 @@ public class GUI extends JFrame {
 
     /**
      * This method initializes this
-     *
-     * @return void
      */
     private void initialize() {
         this.setSize(414, 431);
         this.setLocation(86, 200);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setContentPane(getJContentPane());
         this.setTitle("Crawler");
     }
@@ -89,7 +82,7 @@ public class GUI extends JFrame {
             gridBagConstraints10.gridx = 0;
             gridBagConstraints10.fill = GridBagConstraints.HORIZONTAL;
             gridBagConstraints10.gridy = 6;
-            jlOutput = new JLabel();
+            JLabel jlOutput = new JLabel();
             jlOutput.setText("Ausgabedatei: ");
             jlOutput.setHorizontalAlignment(SwingConstants.RIGHT);
             GridBagConstraints gridBagConstraints9 = new GridBagConstraints();
@@ -101,7 +94,7 @@ public class GUI extends JFrame {
             gridBagConstraints7.gridx = 0;
             gridBagConstraints7.fill = GridBagConstraints.HORIZONTAL;
             gridBagConstraints7.gridy = 5;
-            jlDepth = new JLabel();
+            JLabel jlDepth = new JLabel();
             jlDepth.setText("max. Suchtiefe: ");
             jlDepth.setHorizontalTextPosition(SwingConstants.RIGHT);
             jlDepth.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -109,7 +102,7 @@ public class GUI extends JFrame {
             gridBagConstraints6.gridx = 0;
             gridBagConstraints6.gridwidth = 2;
             gridBagConstraints6.gridy = 4;
-            jlFilterExp = new JLabel();
+            JLabel jlFilterExp = new JLabel();
             jlFilterExp
                     .setText("(Es werden nur URLs gecrawlt, die mit FILTER beginnen)");
             jlFilterExp.setFont(new Font("Dialog", Font.PLAIN, 12));
@@ -125,7 +118,7 @@ public class GUI extends JFrame {
             gridBagConstraints4.gridwidth = 1;
             gridBagConstraints4.weightx = 0.0D;
             gridBagConstraints4.gridy = 3;
-            jlFilter = new JLabel();
+            JLabel jlFilter = new JLabel();
             jlFilter.setText(" Filter: ");
             jlFilter.setHorizontalAlignment(SwingConstants.RIGHT);
             jlFilter.setHorizontalTextPosition(SwingConstants.RIGHT);
@@ -134,7 +127,7 @@ public class GUI extends JFrame {
             gridBagConstraints2.fill = GridBagConstraints.HORIZONTAL;
             gridBagConstraints2.gridwidth = 2;
             gridBagConstraints2.gridy = 0;
-            jlStartURLs = new JLabel();
+            JLabel jlStartURLs = new JLabel();
             jlStartURLs.setText(" StartURLs (eine URL pro Zeile)");
             jlStartURLs.setHorizontalAlignment(SwingConstants.LEFT);
             jlStartURLs.setDisplayedMnemonic(KeyEvent.VK_UNDEFINED);
@@ -347,7 +340,7 @@ class Search extends JFrame implements ActionListener {
         setJMenuBar(mbar);
         add(textarea);
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(500, 500);
         setLocation(500, 200);
     }
@@ -356,7 +349,7 @@ class Search extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JComponent source = (JComponent) (e.getSource());
 
-        if (source == (JComponent) openbutton) {
+        if (source == openbutton) {
             JFileChooser d = new JFileChooser();
             d.setCurrentDirectory(new File("./"));
 
@@ -392,10 +385,7 @@ class Search extends JFrame implements ActionListener {
             } else {
                 System.out.println("Open command cancelled by user.\n");
             }
-        } else if (source == (JComponent) rhofield) {
-
         }
-
     }
 
     class TxtFilter extends FileFilter {
